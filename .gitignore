@@ -1,6 +1,9 @@
 # OpenCode (local state)
 .opencode/.session-start
 .opencode/autopilot.state
+.opencode/thinking.level
+.opencode/autonomy.level
+.opencode/RECOVERY.md
 STOP
 
 # Secrets and environment

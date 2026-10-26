@@ -41,7 +41,7 @@
 ├── ARCHITECTURE.md    # architecture
 ├── CHANGELOG.md       # version history
 ├── docs/              # conventions, testing, design, glossary, module catalog (MODULES.md)
-├── scripts/           # utilities (check, commit, autopilot…)
+├── scripts/           # utilities (check, commit, autopilot, thinking, autonomy, unstick…)
 ├── .opencode/         # OpenCode skills, commands, agents and plugins
 └── src/               # code (to be created)
 ```
@@ -49,10 +49,16 @@
 ## Development with OpenCode
 
 ```bash
-opencode            # open at the repo root
-/bootstrap          # (first time) fill in the docs and the project commands
-/autopilot 120      # autonomous work for ~2h
+opencode                 # open at the repo root
+/bootstrap               # (first time) fill in the docs and the project commands
+/pensamento alto         # how deeply the AI thinks: baixo | medio | alto | auto
+/autonomia alta          # how much it decides on its own: guiada | normal | alta | total
+/auto <goal>             # a whole goal, end to end, unattended (or /autopilot 120, /noite 8)
+/desbloquear-pensamento  # the AI is looping? soft reset (add "hard" -> /new -> /continuar)
+/comandos                # list every command
 ```
+
+Auto commit is **on by default whenever a git repository is present** in the working folder.
 
 See `docs/TEMPLATE_GUIDE.md` for the full workflow guide.
 

@@ -26,6 +26,16 @@ function writeState(dir, st) {
   writeFileSync(join(dir, STATE), body)
 }
 
+// Local levels set by /pensamento and /autonomia (files written by scripts/thinking.sh and scripts/autonomy.sh).
+function readLevel(dir, file, fallback) {
+  try {
+    const p = join(dir, ".opencode", file)
+    return existsSync(p) ? readFileSync(p, "utf8").trim() || fallback : fallback
+  } catch {
+    return fallback
+  }
+}
+
 // The event envelope differs across event kinds; read the payload defensively.
 const payload = (event) => event?.data ?? event?.properties ?? {}
 
@@ -138,9 +148,13 @@ export default Plugin.define({
 
           st.count = String(count + 1)
           writeState(directory, st)
+          const thinking = readLevel(directory, "thinking.level", "medio")
+          const autonomy = readLevel(directory, "autonomy.level", "normal")
           send(
             sessionID,
             `[AUTOPILOT ${count + 1}/${max}] ${elapsed} min elapsed, ~${remaining} min left. ` +
+              `Thinking level: ${thinking} (skill thinking-levels) · autonomy: ${autonomy} (AGENTS.md §4.8). ` +
+              `If you notice you are repeating the same output or tool call, run the skill loop-recovery (scripts/unstick.sh) instead of retrying. ` +
               `Continue the work loop (AGENTS.md §4): re-read PROGRESS.md/TODO.md/QUESTIONS.md, pick the next task and do it. ` +
               `Do not ask for confirmations. If in doubt, apply the 5 angles (skill decide-without-asking) and decide. ` +
               `If the queue is empty, follow AGENTS.md §4.4. If you are truly blocked on everything, record it in QUESTIONS.md and run ` +

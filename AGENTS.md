@@ -23,7 +23,7 @@
 
 ## 2. Startup ritual (mandatory, in this order)
 
-1. `bash scripts/session-start.sh` — date, branch, git state, latest commits, session clock.
+1. `bash scripts/session-start.sh` — date, branch, git state, latest commits, session clock, **thinking/autonomy levels**, whether **auto-commit** is active, and a warning if `.opencode/RECOVERY.md` exists (read it first, then continue from its *Next concrete step*).
 2. Read `PROGRESS.md` (*Current state* section and the last session).
 3. Read `QUESTIONS.md` — **the user may have answered in the meantime**; incorporate the answers and move them to *Answered*.
 4. Read `TODO.md` (*Now* section), `ROADMAP.md` (current milestone) and `BUGS.md` (open P0/P1).
@@ -111,6 +111,27 @@ New ideas, "while we're at it…" and side improvements go to `IDEAS.md`. Do not
 
 `/autopilot [minutes]` activates the plugin that wakes the agent again when it goes idle, until the budget runs out. It ends when: budget spent, `scripts/autopilot.sh stop`, a `STOP` file in the root, error/user interruption, or an iteration limit. Even without the plugin, behave as if it were active when the user asks for long work.
 
+### 4.7 Thinking levels (`/pensamento`)
+
+`bash scripts/thinking.sh get` → `baixo` | `medio` (default) | `alto` | `auto`. It tells you **how much to read, plan, compare and verify** per task. Follow the skill `thinking-levels`; a level the user states in a message ("faz isto rápido", "pensa a fundo") wins for that task. The level never relaxes §5–§8.
+
+### 4.8 Autonomy levels (`/autonomia`)
+
+`bash scripts/autonomy.sh get` → `guiada` | `normal` (default) | `alta` | `total`.
+
+| Level | Behavior |
+|-------|----------|
+| `guiada` | Before a non-trivial design choice (new dependency, structure change, public API change) or any task of size M+, show a short plan and ask in chat. Otherwise as `normal`. |
+| `normal` | §4.3 as written: decide alone, ask only on real blockers (batched in `QUESTIONS.md`). |
+| `alta` | A real blocker does **not** stop the work: write it to `QUESTIONS.md` with your default recommendation, apply the default as `Provisional` when it is reversible, and keep going. Skip only what needs credentials, money or irreversible actions. |
+| `total` | Never ask during the session. Product ambiguity is decided by best judgment (recorded in `DECISIONS.md`); anything that needs credentials, money or an irreversible action is skipped and recorded. |
+
+The limits in §8 and §6 (no force push, no secrets, nothing outside the repo, nothing published) **do not change with the level.**
+
+### 4.9 Loops (`/desbloquear-pensamento`)
+
+If you notice you are repeating the same output or tool call (3 times), the same error survives 2 different "fixes", or 15+ tool calls pass without a new fact or edit → **stop and run the skill `loop-recovery`** (`bash scripts/unstick.sh`) instead of trying again. It rebuilds the state from the files; if the repetition returns, ask the user to open a new session (`/new`) and run `/continuar`.
+
 ## 5. Code quality
 
 - **Modular:** one responsibility per module/function; short functions (reference: < 40 lines); focused files (reference: < 300 lines); dependencies pointing in a single direction. Skill `refactoring-modular`.
@@ -130,7 +151,7 @@ New ideas, "while we're at it…" and side improvements go to `IDEAS.md`. Do not
 
 - Commits are **Conventional Commits** in English: `feat(scope): …`, `fix:`, `refactor:`, `docs:`, `test:`, `chore:`, `perf:`, `build:`, `ci:`.
 - One commit per logical unit, after `scripts/check.sh` passes. Use `bash scripts/commit.sh "type(scope): message"` (it runs the secret check).
-- The `auto-commit` plugin saves `chore(wip)` checkpoints when the session goes idle — a safety net, not a replacement for good commit messages.
+- The `auto-commit` plugin saves `chore(wip)` checkpoints when the session goes idle — a safety net, not a replacement for good commit messages. **It is ON by default whenever a git repository is present in the working folder** (`"enabled": "auto"` in `.opencode/autocommit.json`); with no repository it stays idle. Do not disable it on your own; the user controls it with `/auto-commit`. Do not `git init` by yourself (except in `/auto` and `/noite`).
 - **Forbidden** (without an explicit request): `git push --force`, rewriting shared history, `git reset --hard` with unsaved work, deleting remote branches, committing secrets.
 - `git push` asks for confirmation by default (see `opencode.json`). It is not needed to work.
 
@@ -171,8 +192,11 @@ A task is only done when: the acceptance criteria are met **with evidence** · `
 | `ui-design` | Any interface (web, desktop, mobile, game) |
 | `session-handoff` | Start/end/pause of a session; compacted context |
 | `project-bootstrap` | A new project or a template just copied |
+| `thinking-levels` | Start of every task; `/pensamento`; deciding how deeply to plan/verify |
+| `loop-recovery` | You or the agent repeat the same thing; `/desbloquear-pensamento`; stuck on the same error |
+| `automation-pipeline` | `/auto`, `/noite`, "do it end to end", large goals run unattended |
 
-Commands: `/bootstrap` `/start` `/plan` `/autopilot` `/autopilot-stop` `/decide` `/review` `/structure` `/module` `/commit` `/handoff` `/status`.
+Commands: `/bootstrap` `/start` `/continuar` `/plan` `/status` · `/auto` `/noite` `/autopilot` `/autopilot-stop` `/autonomia` · `/pensamento` `/desbloquear-pensamento` · `/decide` `/review` `/structure` `/module` · `/commit` `/auto-commit` `/checkpoint` `/handoff` · `/comandos` (lists them all). Details: `TEMPLATE_GUIDE.md` §3 and §10–§14.
 
 ## 11. Document hygiene
 

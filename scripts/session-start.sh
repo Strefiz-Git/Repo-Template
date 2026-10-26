@@ -19,6 +19,13 @@ else
   echo "(not a git repository)"
 fi
 
+echo "--- levels ---"
+echo "thinking: $(bash scripts/thinking.sh get 2>/dev/null) · autonomy: $(bash scripts/autonomy.sh get 2>/dev/null)"
+bash scripts/autocommit.sh status 2>/dev/null | head -1
+if [[ -f .opencode/RECOVERY.md ]]; then
+  echo "!!! .opencode/RECOVERY.md exists (a previous session was unstuck/interrupted) — read it first, then continue from 'Next concrete step'."
+fi
+
 echo "--- PROGRESS › Current state ---"
 awk '/^## Current state/{f=1;next} /^## /{f=0} f' PROGRESS.md 2>/dev/null | sed '/^$/d' | head -15
 

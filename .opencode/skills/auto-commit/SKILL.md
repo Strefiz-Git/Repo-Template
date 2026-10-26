@@ -72,6 +72,14 @@ Commits `chore(wip): checkpoint (N files)` are normal. Don't "clean" them (squas
 | Lost changes | `git reflog` + `git checkout <hash> -- file` |
 | Plugin doesn't commit | `git status`; `.opencode/autocommit.json`; OpenCode log (secret detected?) |
 
+## On by default when a repository is present
+
+- The plugin ships with `"enabled": "auto"`: **if the working folder is inside a git repository, auto-commit is active; if there is no repository, it stays idle** and starts working as soon as one exists (e.g. after `git init`).
+- The first line of `bash scripts/session-start.sh` shows the real state; `bash scripts/autocommit.sh status` shows it with detail.
+- Do not turn it off on your own. The user controls it with `/auto-commit` (`auto` · `on` · `off` · `push-on` · `push-off`) or `AUTOCOMMIT=off`.
+- Never `git init` by yourself to "enable" it — except inside `/auto` or `/noite`, where the user asked for full automation.
+- It commits **everything** that is not sensitive, including changes that were already pending before the session. On a repository with someone's unfinished work, check `git status` first; to protect a branch, put its name in `skipBranches`.
+
 ## Turn off/tune the plugin
 
-`.opencode/autocommit.json` → `{ "enabled": false }` or environment variable `AUTOCOMMIT=off`.
+`/auto-commit off`, or `.opencode/autocommit.json` → `{ "enabled": false }`, or the environment variable `AUTOCOMMIT=off`. Other keys: `push`, `minIntervalSeconds`, `blockSecrets`, `skipBranches` (e.g. `["main"]`), `message`.
