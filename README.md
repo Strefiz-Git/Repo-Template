@@ -55,10 +55,22 @@ opencode                 # open at the repo root
 /autonomia alta          # how much it decides on its own: guiada | normal | alta | total
 /auto <goal>             # a whole goal, end to end, unattended (or /autopilot 120, /noite 8)
 /desbloquear-pensamento  # the AI is looping? soft reset (add "hard" -> /new -> /continuar)
+/skills <keyword>        # need a domain-specific skill? find and install it from the skills library
 /comandos                # list every command
 ```
 
 Auto commit is **on by default whenever a git repository is present** in the working folder.
+
+### More skills
+
+This template only ships the general skills. Specific ones (Minecraft/Fabric mods, Android/Kotlin, Godot, Discord bots, web apps, databases, Windows apps, release flows…), plus extra plugins, commands, agents and templates, are in the central library **[OpenCode-Skills-Repo](https://github.com/Strefiz-Git/OpenCode-Skills-Repo)** ([catalog](https://github.com/Strefiz-Git/OpenCode-Skills-Repo/blob/main/CATALOG.md)).
+
+```bash
+bash scripts/skills-repo.sh search fabric             # find
+bash scripts/skills-repo.sh install fabric-hud-overlay # copy into .opencode/skills/
+```
+
+The agent does this on its own through the `skills-library` skill when the task needs one.
 
 See `docs/TEMPLATE_GUIDE.md` for the full workflow guide.
 

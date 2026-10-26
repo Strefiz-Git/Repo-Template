@@ -14,6 +14,8 @@ Goal: in ~15–30 min, go from "template with placeholders" to "project ready fo
 - `git log --oneline | head`, existing README, issues/user notes (`$ARGUMENTS` of the command).
 - **Empty** project: use the description/stack from the placeholders in `README.md`/`AGENTS.md`. If the stack is `to be defined`, decide it with the 5 angles (`decide-without-asking`) based on the goal and record it in `DECISIONS.md` (e.g. `D-002 — Stack`).
 
+- **Stack detected? Look for ready-made skills.** If the stack or domain is specific (Minecraft/Fabric mod, Android, Godot, Discord bot, Flask…), run `bash scripts/skills-repo.sh search <stack>` (skill `skills-library`) and install the few that apply. Skip silently if the library is unreachable.
+
 ### 2. Placeholders
 If `{{PROJECT_NAME}}`, `{{DESCRIPTION}}`, `{{STACK}}`, `{{DATE}}` still exist in the root `.md`/`docs/`: run `bash scripts/init.sh "Name" "Description" "Stack"` (if you have the information) or replace them by hand. Dates via `date +%Y-%m-%d`.
 
