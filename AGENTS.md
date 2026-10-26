@@ -195,8 +195,17 @@ A task is only done when: the acceptance criteria are met **with evidence** · `
 | `thinking-levels` | Start of every task; `/pensamento`; deciding how deeply to plan/verify |
 | `loop-recovery` | You or the agent repeat the same thing; `/desbloquear-pensamento`; stuck on the same error |
 | `automation-pipeline` | `/auto`, `/noite`, "do it end to end", large goals run unattended |
+| `skills-library` | The task is domain-specific and no skill above fits; `/skills`; "is there a skill for…" |
 
-Commands: `/bootstrap` `/start` `/continuar` `/plan` `/status` · `/auto` `/noite` `/autopilot` `/autopilot-stop` `/autonomia` · `/pensamento` `/desbloquear-pensamento` · `/decide` `/review` `/structure` `/module` · `/commit` `/auto-commit` `/checkpoint` `/handoff` · `/comandos` (lists them all). Details: `TEMPLATE_GUIDE.md` §3 and §10–§14.
+Commands: `/bootstrap` `/start` `/continuar` `/plan` `/status` · `/auto` `/noite` `/autopilot` `/autopilot-stop` `/autonomia` · `/pensamento` `/desbloquear-pensamento` · `/decide` `/review` `/structure` `/module` · `/commit` `/auto-commit` `/checkpoint` `/handoff` · `/skills` · `/comandos` (lists them all). Details: `TEMPLATE_GUIDE.md` §3 and §10–§14.
+
+### Central skills library
+
+Skills that are **not** in the table above (Minecraft/Fabric mods, Android/Kotlin, Godot, Discord bots, Flask/Socket.IO, databases, Windows apps and services, C, API research, release flows and more) live in **[OpenCode-Skills-Repo](https://github.com/Strefiz-Git/OpenCode-Skills-Repo)**, together with extra plugins, commands, agents and templates. Its `CATALOG.md` lists everything.
+
+- Before writing a long recipe or checklist for a domain-specific task, search it: `bash scripts/skills-repo.sh search <keyword>` (skill `skills-library`, command `/skills`).
+- Read a skill (`show <name>`) before installing it, install only what the task needs, add it to the table above and log it in `DECISIONS.md`.
+- It is optional: offline or unreachable, carry on with the installed skills. This is never a reason to ask the user.
 
 ## 11. Document hygiene
 

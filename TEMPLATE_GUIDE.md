@@ -84,6 +84,7 @@ If the plugin API changes and the plugin stops working, the rest stays valid: th
 - **Skills:** `.opencode/skills/<name>/SKILL.md`. The folder name must match `name:`. Keep it < 500 lines and make the descriptions "insistent" about *when* to use them.
 - **Language:** the docs are in English; commits in English. Change `AGENTS.md` (section 9) if you prefer another language.
 - **Global skills:** copy folders from `.opencode/skills/` to `~/.config/opencode/skills/` to use them in every project.
+- **More skills:** the specific ones live in [OpenCode-Skills-Repo](https://github.com/Strefiz-Git/OpenCode-Skills-Repo). Use `/skills <keyword>` or `bash scripts/skills-repo.sh search|show|install` (skill `skills-library`). Installing is optional and never blocks the work.
 
 ## 7. Structure, documentation and reuse
 
@@ -318,6 +319,7 @@ Reinicia o OpenCode depois. Só o plugin é instalado globalmente; os comandos (
 | Controlo da IA | `/pensamento` · `/desbloquear-pensamento` |
 | Código e qualidade | `/module` · `/structure` · `/review` · `/decide` |
 | Git e sessão | `/commit` · `/auto-commit` · `/checkpoint` · `/handoff` |
+| Skills de outros repos | `/skills` |
 
 ### Skills novas
 
@@ -326,6 +328,7 @@ Reinicia o OpenCode depois. Só o plugin é instalado globalmente; os comandos (
 | `thinking-levels` | Define o que baixo/medio/alto/auto significam em leitura, planeamento, decisões, testes e verificação |
 | `loop-recovery` | Deteta loops, faz reset suave/duro e reconstrói o estado a partir dos ficheiros |
 | `automation-pipeline` | O pipeline à volta do ciclo de trabalho: preparar, planear, autopilot, fechar, e os travões para correr sem supervisão |
+| `skills-library` | Procurar e instalar skills específicas do repo central [OpenCode-Skills-Repo](https://github.com/Strefiz-Git/OpenCode-Skills-Repo) quando o projeto não tem a skill certa |
 
 ### Scripts novos
 
@@ -336,6 +339,7 @@ Reinicia o OpenCode depois. Só o plugin é instalado globalmente; os comandos (
 | `scripts/autocommit.sh` | `status` / `auto` / `on` / `off` / `push-on` / `push-off` |
 | `scripts/unstick.sh` | Snapshot de recuperação + pausa do autopilot (`soft`/`hard`) |
 | `scripts/commands.sh` | Lista os comandos (usado pelo `/comandos`) |
+| `scripts/skills-repo.sh` | `list` / `search` / `show` / `install` de skills do OpenCode-Skills-Repo (usado pelo `/skills`) |
 | `scripts/install-global.sh` | Instala o auto commit globalmente (plugin, e opcionalmente skills) |
 
 ### Estado local (não vai para o git)
