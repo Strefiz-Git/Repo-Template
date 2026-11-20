@@ -9,7 +9,7 @@ The next session (you after a context compression, or another agent) only knows 
 
 ## Startup (≈ 2 min)
 
-1. `bash scripts/session-start.sh` — date, branch, git, recent commits, state, clock.
+1. `bash scripts/session-start.sh` — date, branch, git, recent commits, state, clock. Confirm the recorded branch objective in `PROGRESS.md` matches the current branch.
 2. `PROGRESS.md` → *Current state* and the latest journal entry.
 3. `QUESTIONS.md` → **any new answers?** (`Answer:` field filled in). Apply them, move to *Answered*, unblock tasks.
 4. `TODO.md` → *Now* and *Blocked*; `ROADMAP.md` → current milestone; `BUGS.md` → open P0/P1.

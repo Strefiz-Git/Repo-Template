@@ -7,6 +7,7 @@
 
 - **Current milestone:** M0 — Foundations
 - **Last update:** {{DATE}}
+- **Branch:** (none recorded) — objective: (none)
 - **Build/test health:** ❓ to be verified
 - **In progress:** nothing
 - **Recommended next step:** run `/bootstrap`
@@ -21,7 +22,7 @@
 - **Done:** T-00X …; T-00Y …
 - **Decisions:** D-00X (link in DECISIONS.md)
 - **Findings / problems:** …
-- **State on exit:** build ✅/❌ · tests ✅/❌ · branch · last commit
+- **State on exit:** build ✅/❌ · tests ✅/❌ · branch · branch objective · last commit
 - **Next step:** …
 -->
 

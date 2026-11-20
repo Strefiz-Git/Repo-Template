@@ -246,7 +246,7 @@ O pipeline (skill `automation-pipeline`): **preparar** (ritual de arranque; `pro
 
 ### `/noite [horas]` — sessão longa sem supervisão
 
-Por defeito 8 h (máx. 12). Põe a autonomia em `alta`, liga o autopilot com limite de 250 iterações e acrescenta travões: commit muito frequente, `/review` a cada ~90 min, 3 `check.sh` vermelhos seguidos → volta ao último verde numa branch `wip/noite-<data>` e passa a outra tarefa, nunca começa nada destrutivo/pago/com credenciais. Sem repositório git, faz `git init` e o primeiro commit antes de arrancar.
+Por defeito 8 h (máx. 12). Põe a autonomia em `alta`, liga o autopilot com limite de 250 iterações e acrescenta travões: commit muito frequente, `/review` a cada ~90 min, 3 `check.sh` vermelhos seguidos → volta ao último verde numa branch `wip-noite-<data>` e passa a outra tarefa, nunca começa nada destrutivo/pago/com credenciais. Sem repositório git, faz `git init` e o primeiro commit antes de arrancar.
 
 ### `/autopilot [min]` e `/autopilot-stop`
 

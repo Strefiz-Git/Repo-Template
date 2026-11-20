@@ -23,7 +23,7 @@
 
 ## 2. Startup ritual (mandatory, in this order)
 
-1. `bash scripts/session-start.sh` — date, branch, git state, latest commits, session clock, **thinking/autonomy levels**, whether **auto-commit** is active, and a warning if `.opencode/RECOVERY.md` exists (read it first, then continue from its *Next concrete step*).
+1. `bash scripts/session-start.sh` — date, branch, git state, latest commits, session clock, **thinking/autonomy levels**, whether **auto-commit** is active, and a warning if `.opencode/RECOVERY.md` exists (read it first, then continue from its *Next concrete step*). Confirm the branch recorded in `PROGRESS.md › Current state` (name + objective) matches the current branch.
 2. Read `PROGRESS.md` (*Current state* section and the last session).
 3. Read `QUESTIONS.md` — **the user may have answered in the meantime**; incorporate the answers and move them to *Answered*.
 4. Read `TODO.md` (*Now* section), `ROADMAP.md` (current milestone) and `BUGS.md` (open P0/P1).
@@ -155,6 +155,35 @@ If you notice you are repeating the same output or tool call (3 times), the same
 - **Forbidden** (without an explicit request): `git push --force`, rewriting shared history, `git reset --hard` with unsaved work, deleting remote branches, committing secrets.
 - `git push` asks for confirmation by default (see `opencode.json`). It is not needed to work.
 
+### Branches — naming and awareness
+
+- **Naming format:** `<classification>-<short-description>-<YYYY-MM-DD>` (all lowercase, kebab-case, ASCII; the date is the branch's start date, ISO). Example: `feat-dark-mode-toggle-2026-10-26`. Use `bash scripts/branch.sh <classification> "<description>"` so the name is validated and dated; never invent ad-hoc names.
+- **Classifications** (pick the one that matches the branch's purpose):
+
+  | Classification | Purpose |
+  |---|---|
+  | `feat` | new feature / implementation |
+  | `fix` | bug fix |
+  | `hotfix` | urgent fix for production/main |
+  | `refactor` | restructuring without behavior change |
+  | `perf` | performance improvement |
+  | `a11y` | accessibility |
+  | `ux` / `ui` | user experience / interface work |
+  | `support` | user-support driven change |
+  | `security` | security fix or hardening |
+  | `docs` | documentation only |
+  | `test` | tests only |
+  | `chore` | maintenance / housekeeping |
+  | `audit` | routine verification / audit pass |
+  | `deps` / `build` / `ci` | dependencies, build, pipeline |
+  | `experiment` / `spike` | exploration, may be discarded |
+  | `release` | release preparation |
+  | `revert` | reverting a change |
+  | `wip` | work-in-progress (e.g. overnight safety branch) |
+  | `adjust` | small adjustment / tweak |
+
+- **Awareness:** always know which branch you are on and what its objective is. Record both in `PROGRESS.md › Current state` as `Branch: <name> — objective: <one line>`. `scripts/session-start.sh` prints the current branch; confirm the recorded objective still matches before starting work. Whenever you create or switch branches, update `PROGRESS.md` in the same step.
+- Short work stays on the current branch; long-running or experimental work gets its own branch. Before risky operations (big refactor, migration) create a branch or a `before-<theme>` tag.
 ## 7. Definition of Done
 
 A task is only done when: the acceptance criteria are met **with evidence** · `scripts/check.sh` is green · tests added/updated · affected docs updated (docstrings, module README, `docs/MODULES.md`) · nothing is duplicated (reuse verified) · `TODO.md`/`PROGRESS.md` updated · commit made · no known regressions (or they are recorded in `BUGS.md`).

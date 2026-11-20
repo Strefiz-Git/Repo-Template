@@ -26,7 +26,7 @@ description: End-to-end automation recipe for a whole goal with no supervision �
 | Risk | Safeguard |
 |------|-----------|
 | Crash loses work | Commit after every task; auto-commit checkpoints in between |
-| Broken build snowballs | `check.sh` must be green before each commit; 3 red runs on different attempts → revert to last green on `wip/<date>` branch, log in `BUGS.md`, take another task |
+| Broken build snowballs | `check.sh` must be green before each commit; 3 red runs on different attempts → revert to last green on `wip-noite-<date>` branch, log in `BUGS.md`, take another task |
 | Scope creep | New ideas → `IDEAS.md`; only `TODO.md`/`ROADMAP.md` items are implemented |
 | Endless loop | Skill `loop-recovery`; iteration limit and time budget in the autopilot plugin; a `STOP` file in the root ends everything |
 | Irreversible / costly action | Never unattended: record in `QUESTIONS.md` with a default and skip |

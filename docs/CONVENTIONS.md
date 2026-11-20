@@ -45,7 +45,9 @@
 
 ## Git
 
-- Conventional Commits (in English). Branches: `feat/…`, `fix/…`, `chore/…` (long-running work can live in `ai/<topic>`).
+- Conventional Commits (in English).
+- Branches follow `<classification>-<short-description>-<YYYY-MM-DD>` (lowercase kebab-case, ISO date = start date). Classifications: `feat`, `fix`, `hotfix`, `refactor`, `perf`, `a11y`, `ux`/`ui`, `support`, `security`, `docs`, `test`, `chore`, `audit`, `deps`/`build`/`ci`, `experiment`/`spike`, `release`, `revert`, `wip`, `adjust`. Create with `bash scripts/branch.sh <classification> "<description>"`.
+- Always record the current branch and its objective in `PROGRESS.md › Current state` (`Branch: <name> — objective: <one line>`); keep it updated on create/switch.
 
 ## Stack-specific ({{STACK}})
 

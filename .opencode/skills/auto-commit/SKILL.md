@@ -53,7 +53,9 @@ Bad: `update`, `fix stuff`, `wip`, `changes`.
 
 ## Branches
 
-- Short work: on the current branch. Long/experimental work: `ai/<theme>` or `feat/<theme>`.
+- **Naming:** `<classification>-<short-description>-<YYYY-MM-DD>` (lowercase kebab-case, ISO date = start date). Classifications: `feat`, `fix`, `hotfix`, `refactor`, `perf`, `a11y`, `ux`/`ui`, `support`, `security`, `docs`, `test`, `chore`, `audit`, `deps`/`build`/`ci`, `experiment`/`spike`, `release`, `revert`, `wip`, `adjust`. Create with `bash scripts/branch.sh <classification> "<description>"` so the name is validated and dated — never invent ad-hoc names.
+- Short work: on the current branch. Long/experimental work: its own branch.
+- **Awareness:** always know which branch you are on and its objective. Record both in `PROGRESS.md › Current state` (`Branch: <name> — objective: <one line>`) and update it whenever you create or switch branches.
 - Before risky operations (big refactor, migration): create a branch or a `before-<theme>` tag.
 - Never `git push --force`, never rewrite shared history, never `reset --hard` with uncommitted work (the permissions in `opencode.json` already protect you).
 - `git push` asks for confirmation; it isn't needed to work. (Want automatic push: `"push": true` in `.opencode/autocommit.json`.)
