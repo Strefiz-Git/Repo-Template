@@ -8,3 +8,10 @@
 *.ico binary
 *.zip binary
 *.pdf binary
+
+# Team work: append-style logs merge by keeping both sides (mitigates conflicts; check IDs afterwards).
+# Note: custom merge drivers may not apply to merges done in the GitHub web UI.
+DECISIONS.md merge=union
+BUGS.md merge=union
+IDEAS.md merge=union
+CHANGELOG.md merge=union

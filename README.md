@@ -40,6 +40,7 @@
 ├── IDEAS.md           # out-of-scope ideas
 ├── ARCHITECTURE.md    # architecture
 ├── CHANGELOG.md       # version history
+├── .github/           # CI workflow and pull request template
 ├── docs/              # conventions, testing, design, glossary, module catalog (MODULES.md)
 ├── scripts/           # utilities (check, commit, autopilot, thinking, autonomy, unstick…)
 ├── .opencode/         # OpenCode skills, commands, agents and plugins
@@ -80,4 +81,4 @@ Commits follow [Conventional Commits](https://www.conventionalcommits.org/). Bef
 
 ## License
 
-_To be defined._
+See [`LICENSE`](LICENSE) (MIT by default — change it before publishing if needed).

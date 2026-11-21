@@ -183,7 +183,10 @@ If you notice you are repeating the same output or tool call (3 times), the same
   | `adjust` | small adjustment / tweak |
 
 - **Awareness:** always know which branch you are on and what its objective is. Record both in `PROGRESS.md › Current state` as `Branch: <name> — objective: <one line>`. `scripts/session-start.sh` prints the current branch; confirm the recorded objective still matches before starting work. Whenever you create or switch branches, update `PROGRESS.md` in the same step.
-- Short work stays on the current branch; long-running or experimental work gets its own branch. Before risky operations (big refactor, migration) create a branch or a `before-<theme>` tag.
+- **Protected branches (`main`, `master` by default): never work or commit directly on them.** Start every task on its own branch (`bash scripts/branch.sh …`) and integrate through a pull request. `scripts/commit.sh` refuses to commit there and auto-commit makes no checkpoints there. The list is `skipBranches` in `.opencode/autocommit.json`; a solo project can set it to `[]`.
+- Before risky operations (big refactor, migration) create a branch or a `before-<theme>` tag.
+- **Working with other people:** pull/rebase from `main` before allocating new IDs (`T-`, `D-`, `Q-`, `B-`) — two branches can pick the same number. `DECISIONS`, `BUGS`, `IDEAS` and `CHANGELOG` merge with `merge=union` (see `.gitattributes`); on a conflict in `PROGRESS.md` keep both session entries and rewrite *Current state*. Teams should set `guiada` in `.opencode/autonomy.default`.
+
 ## 7. Definition of Done
 
 A task is only done when: the acceptance criteria are met **with evidence** · `scripts/check.sh` is green · tests added/updated · affected docs updated (docstrings, module README, `docs/MODULES.md`) · nothing is duplicated (reuse verified) · `TODO.md`/`PROGRESS.md` updated · commit made · no known regressions (or they are recorded in `BUGS.md`).

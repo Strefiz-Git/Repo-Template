@@ -13,7 +13,7 @@ import { execFile } from "node:child_process"
 
 const DEFAULTS = {
   enabled: "auto", // "auto" = active when a git repository is present; true = same, forced; false = off
-  skipBranches: [], // e.g. ["main"] to never checkpoint on those branches
+  skipBranches: ["main", "master"], // protected branches: never checkpoint there ([] = none, e.g. solo projects)
   push: false,
   minIntervalSeconds: 15,
   blockSecrets: true,
@@ -73,6 +73,7 @@ export default Plugin.define({
 
     let busy = false
     let lastRun = 0
+    let warnedBranch = "" // warn once per protected branch
 
     const log = (level, message) => {
       const line = `[auto-commit] ${message}`
@@ -94,7 +95,16 @@ export default Plugin.define({
       if (inside.code !== 0) return // no git repository here: auto-commit stays idle
 
       const branch = (await git("rev-parse", "--abbrev-ref", "HEAD")).out.trim()
-      if (Array.isArray(cfg.skipBranches) && cfg.skipBranches.includes(branch)) return
+      if (Array.isArray(cfg.skipBranches) && cfg.skipBranches.includes(branch)) {
+        if (warnedBranch !== branch) {
+          const pending = await git("status", "--porcelain")
+          if (pending.code === 0 && pending.out.trim()) {
+            warnedBranch = branch
+            log("warn", `on protected branch '${branch}' — no checkpoint made. Start a branch: bash scripts/branch.sh <classification> "<description>"`)
+          }
+        }
+        return
+      }
 
       // do not act in the middle of a merge/rebase/cherry-pick
       const gd = (await git("rev-parse", "--git-dir")).out.trim()

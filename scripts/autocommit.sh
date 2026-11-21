@@ -5,6 +5,7 @@
 #   bash scripts/autocommit.sh on|off      -> force on / off
 #   bash scripts/autocommit.sh push-on|push-off
 # The environment variable AUTOCOMMIT=on|off overrides the file.
+# "skipBranches" = protected branches: no checkpoints there and scripts/commit.sh refuses to commit (use [] for a solo project).
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 mkdir -p .opencode

@@ -12,6 +12,7 @@ echo "=== $(date '+%Y-%m-%d %H:%M') ==="
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   echo "--- git ---"
   echo "branch: $(git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+  bash scripts/branch.sh --check 2>&1 | head -2 | sed 's/^/  /' || true
   git status --short | head -20
   echo "--- latest commits ---"
   git log --oneline -8 2>/dev/null

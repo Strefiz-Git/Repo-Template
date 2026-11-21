@@ -47,6 +47,7 @@
 
 - Conventional Commits (in English).
 - Branches follow `<classification>-<short-description>-<YYYY-MM-DD>` (lowercase kebab-case, ISO date = start date). Classifications: `feat`, `fix`, `hotfix`, `refactor`, `perf`, `a11y`, `ux`/`ui`, `support`, `security`, `docs`, `test`, `chore`, `audit`, `deps`/`build`/`ci`, `experiment`/`spike`, `release`, `revert`, `wip`, `adjust`. Create with `bash scripts/branch.sh <classification> "<description>"`.
+- `main`/`master` are protected: never commit on them directly — work on a branch and open a pull request (`scripts/commit.sh` enforces it; `skipBranches` in `.opencode/autocommit.json` controls the list).
 - Always record the current branch and its objective in `PROGRESS.md › Current state` (`Branch: <name> — objective: <one line>`); keep it updated on create/switch.
 
 ## Stack-specific ({{STACK}})

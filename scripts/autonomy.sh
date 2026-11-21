@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Autonomy level of the agent (how much it asks vs. decides). Local state: .opencode/autonomy.level
+# Project default (committed, shared by everyone): .opencode/autonomy.default (one word; falls back to "normal").
+# Teams: put `guiada` there so every collaborator starts with the safer level.
 #   bash scripts/autonomy.sh get              -> prints the current level (default: normal)
 #   bash scripts/autonomy.sh set <level>      -> guiada | normal | alta | total
-#   bash scripts/autonomy.sh reset            -> back to the default (normal)
+#   bash scripts/autonomy.sh reset            -> back to the project default
 set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 mkdir -p .opencode
 F=.opencode/autonomy.level
 DEFAULT=normal
+PD=.opencode/autonomy.default
 
 normalize() {
   local v
@@ -20,6 +23,9 @@ normalize() {
     *) return 1 ;;
   esac
 }
+
+# project default (validated); falls back to "normal" when missing or invalid
+if [[ -f "$PD" ]] && pd="$(normalize "$(cat "$PD")")"; then DEFAULT="$pd"; fi
 
 cmd="${1:-get}"
 case "$cmd" in

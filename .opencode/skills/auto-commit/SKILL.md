@@ -54,7 +54,7 @@ Bad: `update`, `fix stuff`, `wip`, `changes`.
 ## Branches
 
 - **Naming:** `<classification>-<short-description>-<YYYY-MM-DD>` (lowercase kebab-case, ISO date = start date). Classifications: `feat`, `fix`, `hotfix`, `refactor`, `perf`, `a11y`, `ux`/`ui`, `support`, `security`, `docs`, `test`, `chore`, `audit`, `deps`/`build`/`ci`, `experiment`/`spike`, `release`, `revert`, `wip`, `adjust`. Create with `bash scripts/branch.sh <classification> "<description>"` so the name is validated and dated — never invent ad-hoc names.
-- Short work: on the current branch. Long/experimental work: its own branch.
+- **Never work or commit directly on a protected branch** (`main`/`master` by default; `skipBranches` in `.opencode/autocommit.json`). Start every task with `bash scripts/branch.sh …`; `scripts/commit.sh` refuses on protected branches and the plugin makes no checkpoints there. Solo project? Set `skipBranches` to `[]`. Integrate through a pull request.
 - **Awareness:** always know which branch you are on and its objective. Record both in `PROGRESS.md › Current state` (`Branch: <name> — objective: <one line>`) and update it whenever you create or switch branches.
 - Before risky operations (big refactor, migration): create a branch or a `before-<theme>` tag.
 - Never `git push --force`, never rewrite shared history, never `reset --hard` with uncommitted work (the permissions in `opencode.json` already protect you).
@@ -80,8 +80,8 @@ Commits `chore(wip): checkpoint (N files)` are normal. Don't "clean" them (squas
 - The first line of `bash scripts/session-start.sh` shows the real state; `bash scripts/autocommit.sh status` shows it with detail.
 - Do not turn it off on your own. The user controls it with `/auto-commit` (`auto` · `on` · `off` · `push-on` · `push-off`) or `AUTOCOMMIT=off`.
 - Never `git init` by yourself to "enable" it — except inside `/auto` or `/noite`, where the user asked for full automation.
-- It commits **everything** that is not sensitive, including changes that were already pending before the session. On a repository with someone's unfinished work, check `git status` first; to protect a branch, put its name in `skipBranches`.
+- It commits **everything** that is not sensitive, including changes that were already pending before the session. On a repository with someone's unfinished work, check `git status` first; `main` and `master` are already in `skipBranches` (protected); add other long-lived branches there.
 
 ## Turn off/tune the plugin
 
-`/auto-commit off`, or `.opencode/autocommit.json` → `{ "enabled": false }`, or the environment variable `AUTOCOMMIT=off`. Other keys: `push`, `minIntervalSeconds`, `blockSecrets`, `skipBranches` (e.g. `["main"]`), `message`.
+`/auto-commit off`, or `.opencode/autocommit.json` → `{ "enabled": false }`, or the environment variable `AUTOCOMMIT=off`. Other keys: `push`, `minIntervalSeconds`, `blockSecrets`, `skipBranches` (default `["main", "master"]`; `[]` = none), `message`.

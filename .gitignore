@@ -38,6 +38,19 @@ __pycache__/
 .venv/
 venv/
 coverage/
+.coverage
+htmlcov/
 *.log
 .godot/
 .import/
+
+# Python tooling caches and packaging
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+*.egg-info/
+
+# Local-only runtime data (Flask instance folder, scratch files)
+instance/
+*.tmp

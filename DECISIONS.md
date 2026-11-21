@@ -28,3 +28,9 @@
 - **Context:** much code is written by agents in long sessions; without rules, duplication, `utils` junk drawers and modules nobody knows how to use appear.
 - **Decision:** reuse before writing (`docs/MODULES.md` + `scripts/find-reuse.sh`); pure functions and modules with a minimal public API; structure by feature; everything public documented (docstring + module README). Skills `reusable-modules`, `project-structure`, `code-documentation`.
 - **How to revert:** remove the three skills and the corresponding rules in `AGENTS.md` §5 and `docs/CONVENTIONS.md`.
+
+### D-003 — Protected `main`; every task on a validated branch  ({{DATE}}) — Accepted
+- **Context:** projects with a protected `main` and more than one contributor; auto-commit and agents must not write there.
+- **Decision:** `skipBranches` defaults to `main`/`master` (no checkpoints; `scripts/commit.sh` refuses); branch names validated by `scripts/branch.sh` (also in CI); CI runs `scripts/check.sh`; append-style logs use `merge=union`; a committed `.opencode/autonomy.default` lets a team start at `guiada`.
+- **How to revert:** set `skipBranches` to `[]`, delete `.github/` and the `merge=union` lines in `.gitattributes`.
+- **Consequences:** a solo project must either use branches or opt out via `skipBranches`.

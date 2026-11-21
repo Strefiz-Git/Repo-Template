@@ -3,6 +3,6 @@
   "push": false,
   "minIntervalSeconds": 15,
   "blockSecrets": true,
-  "skipBranches": [],
+  "skipBranches": ["main", "master"],
   "message": "chore(wip): checkpoint"
 }

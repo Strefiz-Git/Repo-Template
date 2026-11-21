@@ -3,6 +3,7 @@
 # - validates Conventional Commits
 # - stages (everything, or only the given paths)
 # - blocks sensitive files and secret patterns
+# - refuses to commit on protected branches (main/master by default)
 set -euo pipefail
 
 msg="${1:-}"
@@ -17,6 +18,13 @@ if ! [[ "$msg" =~ $re ]]; then
 fi
 
 git rev-parse --is-inside-work-tree >/dev/null 2>&1 || { echo "Not a git repository." >&2; exit 1; }
+
+# protected branches (main/master by default; see "skipBranches" in .opencode/autocommit.json): work on a branch instead
+if [[ "${ALLOW_PROTECTED:-}" != "1" ]] && bash "$(dirname "${BASH_SOURCE[0]}")/branch.sh" --is-protected 2>/dev/null; then
+  echo "BLOCKED — '$(git rev-parse --abbrev-ref HEAD)' is a protected branch. Create a branch first:" >&2
+  echo '  bash scripts/branch.sh <classification> "<description>"   (or ALLOW_PROTECTED=1 to override once)' >&2
+  exit 4
+fi
 
 if [[ $# -gt 0 ]]; then git add -- "$@"; else git add -A; fi
 

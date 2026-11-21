@@ -63,7 +63,7 @@ The plugin `.opencode/plugins/auto-commit.js` makes a `chore(wip): checkpoint` c
 - The "real" commits (with a good message) are made by the agent via the `auto-commit` skill / `scripts/commit.sh`.
 
 ```json
-{ "enabled": "auto", "push": false, "minIntervalSeconds": 15, "blockSecrets": true, "skipBranches": [], "message": "chore(wip): checkpoint" }
+{ "enabled": "auto", "push": false, "minIntervalSeconds": 15, "blockSecrets": true, "skipBranches": ["main", "master"], "message": "chore(wip): checkpoint" }
 ```
 
 ## 5. Autopilot (experimental)
@@ -289,7 +289,7 @@ Se na pasta onde estás a trabalhar existe um **repositório git**, o auto commi
 /auto-commit push-on|push-off → fazer (ou não) push depois de cada checkpoint
 ```
 
-Num terminal, `AUTOCOMMIT=off opencode` desliga só nessa sessão (e `AUTOCOMMIT=on` força). Opções do `autocommit.json`: `enabled` (`"auto"`/`true`/`false`), `push`, `minIntervalSeconds`, `blockSecrets`, `skipBranches` (ex.: `["main"]` para nunca fazer checkpoints nessa branch) e `message`.
+Num terminal, `AUTOCOMMIT=off opencode` desliga só nessa sessão (e `AUTOCOMMIT=on` força). Opções do `autocommit.json`: `enabled` (`"auto"`/`true`/`false`), `push`, `minIntervalSeconds`, `blockSecrets`, `skipBranches` (por defeito `["main", "master"]`: branches protegidas — sem checkpoints e o `scripts/commit.sh` recusa commits; `[]` num projeto a solo que trabalha no `main`) e `message`.
 
 ### Em qualquer pasta, mesmo sem o template
 
@@ -340,7 +340,14 @@ Reinicia o OpenCode depois. Só o plugin é instalado globalmente; os comandos (
 | `scripts/unstick.sh` | Snapshot de recuperação + pausa do autopilot (`soft`/`hard`) |
 | `scripts/commands.sh` | Lista os comandos (usado pelo `/comandos`) |
 | `scripts/skills-repo.sh` | `list` / `search` / `show` / `install` de skills do OpenCode-Skills-Repo (usado pelo `/skills`) |
+| `scripts/branch.sh` | Cria branches `<classificação>-<descrição>-<data>`; `--check` valida o nome; `--is-protected` diz se é branch protegida |
 | `scripts/install-global.sh` | Instala o auto commit globalmente (plugin, e opcionalmente skills) |
+
+### Trabalho em equipa (duas ou mais pessoas)
+
+- `main`/`master` são protegidas por defeito: cada tarefa vai para uma branch (`scripts/branch.sh`) e entra por pull request. O CI (`.github/workflows/ci.yml`) valida o nome da branch e corre `scripts/check.sh` — falta só ligar a instalação da stack no workflow.
+- Autonomia: põe `guiada` em `.opencode/autonomy.default` (vai para o git, por isso vale para todos); o nível local de cada pessoa continua em `.opencode/autonomy.level`.
+- Ficheiros de estado: `DECISIONS`, `BUGS`, `IDEAS` e `CHANGELOG` usam `merge=union` (`.gitattributes`). `PROGRESS.md` continua a poder dar conflito — mantém as duas entradas do log e reescreve o *Current state*. Faz pull/rebase do `main` antes de atribuir IDs novos (`T-`, `D-`, `Q-`, `B-`), porque duas branches podem escolher o mesmo número. O `merge=union` pode não ser aplicado nos merges feitos na interface web do GitHub.
 
 ### Estado local (não vai para o git)
 
